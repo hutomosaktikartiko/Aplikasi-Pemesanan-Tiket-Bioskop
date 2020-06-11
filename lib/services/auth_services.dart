@@ -17,11 +17,11 @@ class AuthServices {
 
       return SignInSignUpResult(user: user);
     } catch (e) {
-      return SignInSignUpResult(message: e.toString().split(',')[1]);
+      return SignInSignUpResult(message: e.toString().split(',')[1].trim());
     }
   }
 
-  static Future<SignInSignUpResult> signIn(
+  static Future<SignInSignUpResult> signIn(  
       String email, String password) async {
     try {
       AuthResult result = await _auth.signInWithEmailAndPassword(
@@ -30,7 +30,7 @@ class AuthServices {
 
       return SignInSignUpResult(user: user);
     } catch (e) {
-      return SignInSignUpResult(message: e.toString().split(',')[1]);
+      return SignInSignUpResult(message: e.toString().split(',')[1].trim());
     }
   }
 
