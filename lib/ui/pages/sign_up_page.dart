@@ -212,6 +212,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             passwordController.text;
 
                         //pindah ke preference page
+                        context
+                            .bloc<PageBloc>()
+                            .add(GoToPreferencePage(widget.registrationData));
                       }
                     },
                   )
