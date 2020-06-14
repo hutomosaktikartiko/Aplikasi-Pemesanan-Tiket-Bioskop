@@ -34,9 +34,7 @@ class _MainPageState extends State<MainPage> {
             });
           },
           children: <Widget>[
-            Center(
-              child: Text("New Movie"),
-            ),
+            MoviePage(),
             Center(
               child: Text("My Ticket"),
             ),
@@ -59,7 +57,10 @@ class _MainPageState extends State<MainPage> {
                       MdiIcons.walletPlus,
                       color: Colors.black.withOpacity(0.54),
                     )),
-                onPressed: () {}),
+                onPressed: () {
+                  context.bloc<UserBloc>().add(SignOut());
+                  AuthServices.singOut();
+                }),
           ),
         )
       ],
