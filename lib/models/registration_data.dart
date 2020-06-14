@@ -9,10 +9,10 @@ class RegistrationData {
   File profileImage;
 
   RegistrationData(
-      {this.name,
-      this.email,
-      this.password,
-      this.selectedGenres,
-      this.selectedLang,
+      {this.name = "",
+      this.email = "",
+      this.password = "",
+      this.selectedGenres = const [],
+      this.selectedLang = "",
       this.profileImage});
 }

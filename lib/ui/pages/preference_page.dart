@@ -94,6 +94,14 @@ class _PreferencePageState extends State<PreferencePage> {
                             backgroundColor: Color(0xFFFF5C83),
                             message: "Please select 4 genres",
                           )..show(context);
+                        } else {
+                          widget.registrationData.selectedGenres =
+                              selectedGenres;
+                          widget.registrationData.selectedLang =
+                              selectedLanguage;
+                          context.bloc<PageBloc>().add(
+                              GoToAccountConfirmationPage(
+                                  widget.registrationData));
                         }
                       },
                     )),
