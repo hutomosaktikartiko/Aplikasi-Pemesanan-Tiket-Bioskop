@@ -100,6 +100,9 @@ class _AccountConfirmationPageState extends State<AccountConfirmationPage> {
                                 setState(() {
                                   isSignUp = true;
                                 });
+                                // titip file image, yang nanti bakalan di upload
+                                imagFileToUpload =
+                                    widget.registrationData.profileImage;
                                 SignInSignUpResult result =
                                     await AuthServices.signUp(
                                         widget.registrationData.email,
@@ -111,9 +114,6 @@ class _AccountConfirmationPageState extends State<AccountConfirmationPage> {
                                   setState(() {
                                     isSignUp = false;
                                   });
-                                  // titip file image, yang nanti bakalan di upload
-                                  imagFileToUpload =
-                                      widget.registrationData.profileImage;
 
                                   Flushbar(
                                     duration: Duration(milliseconds: 1500),
