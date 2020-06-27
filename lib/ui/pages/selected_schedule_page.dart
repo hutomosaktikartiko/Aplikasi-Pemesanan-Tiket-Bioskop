@@ -102,13 +102,32 @@ class _SelectedSchedulePageState extends State<SelectSchedulePage> {
                 ),
                 Align(
                   alignment: Alignment.topCenter,
-                  child: FloatingActionButton(
-                      elevation: 0,
-                      backgroundColor:
-                          (isValid) ? mainColor : Color(0xFFE4E4E4),
-                      child: Icon(Icons.arrow_forward,
-                          color: (isValid) ? Colors.white : Color(0xFFBEBEBE)),
-                      onPressed: () {}),
+                  child: BlocBuilder<UserBloc, UserState>(
+                    builder: (_, userState) => FloatingActionButton(
+                        elevation: 0,
+                        backgroundColor:
+                            (isValid) ? mainColor : Color(0xFFE4E4E4),
+                        child: Icon(Icons.arrow_forward,
+                            color:
+                                (isValid) ? Colors.white : Color(0xFFBEBEBE)),
+                        onPressed: () {
+                          if (isValid) {
+                            context.bloc<PageBloc>().add(GoToSelectSeatPage(
+                                Ticket(
+                                    widget.movieDetail,
+                                    selectedTheater,
+                                    DateTime(
+                                        selectedDate.year,
+                                        selectedDate.month,
+                                        selectedDate.day,
+                                        selectedTime),
+                                    randomAlphaNumeric(12).toUpperCase(),
+                                    null,
+                                    (userState as UserLoaded).user.name,
+                                    null)));
+                          }
+                        }),
+                  ),
                 ),
                 SizedBox(height: 50),
               ],
