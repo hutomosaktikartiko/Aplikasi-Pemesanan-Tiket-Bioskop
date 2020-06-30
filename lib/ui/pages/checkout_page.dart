@@ -11,7 +11,7 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
-    int total = 26000 * widget.ticket.seats.length;
+    int total = 26500 * widget.ticket.seats.length;
     return WillPopScope(
         onWillPop: () {
           context.bloc<PageBloc>().add(GoToSelectSeatPage(widget.ticket));
@@ -375,6 +375,22 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                   onPressed: () {
                                     if (user.balance >= total) {
                                       // # Uang Cukup
+                                      FlutixTransaction transaction =
+                                          FlutixTransaction(
+                                              userID: user.id,
+                                              title: widget
+                                                  .ticket.movieDetail.title,
+                                              subtitle:
+                                                  widget.ticket.theater.name,
+                                              time: DateTime.now(),
+                                              amount: -total,
+                                              picture: widget.ticket.movieDetail
+                                                  .posterPath);
+                                      context.bloc<PageBloc>().add(
+                                          GoToSuccessPage(
+                                              widget.ticket
+                                                  .copyWith(totalPrice: total),
+                                              transaction));
                                     } else {
                                       // Uang Tidak Cukup
                                     }
