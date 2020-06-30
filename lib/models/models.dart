@@ -10,4 +10,5 @@ part 'promo.dart';
 part 'movie_detail.dart';
 part 'credit.dart';
 part 'theater.dart';
+part 'flutix_transaction.dart';
 part 'ticket.dart';
