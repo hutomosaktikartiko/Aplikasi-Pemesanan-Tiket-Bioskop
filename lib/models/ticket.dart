@@ -33,7 +33,7 @@ class Ticket extends Equatable {
     String s = '';
 
     for (var seat in seats) {
-      s += seat + ((seat != seats.length) ? ', ' : '');
+      s += seat + ((seat != seats.last) ? ', ' : '');
     }
 
     return s;

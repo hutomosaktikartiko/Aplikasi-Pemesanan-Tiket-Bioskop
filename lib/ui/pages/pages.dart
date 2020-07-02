@@ -29,3 +29,4 @@ part 'selected_schedule_page.dart';
 part 'select_seat_page.dart';
 part 'checkout_page.dart';
 part 'success_page.dart';
+part 'ticket_page.dart';
