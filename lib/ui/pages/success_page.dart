@@ -60,7 +60,9 @@ class SuccessPage extends StatelessWidget {
                                   fontSize: 16,
                                 ),
                               ),
-                              onPressed: () {}),
+                              onPressed: () {
+                                print(ticket.bookingCode);
+                              }),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

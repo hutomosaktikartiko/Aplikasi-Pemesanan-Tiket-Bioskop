@@ -1,6 +1,10 @@
 part of 'pages.dart';
 
 class MainPage extends StatefulWidget {
+  final int bottomNavBarIndex;
+  final bool isExpired;
+
+  MainPage({this.bottomNavBarIndex = 0, this.isExpired = false});
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -12,7 +16,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    bottomNavBarIndex = 0;
+    bottomNavBarIndex = widget.bottomNavBarIndex;
     pageController = PageController(initialPage: bottomNavBarIndex);
   }
 
@@ -33,7 +37,12 @@ class _MainPageState extends State<MainPage> {
               bottomNavBarIndex = index;
             });
           },
-          children: <Widget>[MoviePage(), TicketPage()],
+          children: <Widget>[
+            MoviePage(),
+            TicketPage(
+              isExpiredTicket: widget.isExpired,
+            )
+          ],
         ),
         createCustomBottomNavBar(),
         Align(
@@ -54,7 +63,7 @@ class _MainPageState extends State<MainPage> {
                     )),
                 onPressed: () {
                   context.bloc<UserBloc>().add(SignOut());
-                  AuthServices.singOut();
+                  AuthServices.signOut();
                 }),
           ),
         )

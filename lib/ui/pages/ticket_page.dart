@@ -1,12 +1,21 @@
 part of 'pages.dart';
 
 class TicketPage extends StatefulWidget {
+  final bool isExpiredTicket;
+
+  TicketPage({this.isExpiredTicket = false});
   @override
   _TicketPageState createState() => _TicketPageState();
 }
 
 class _TicketPageState extends State<TicketPage> {
-  bool isExpiredTickets = false;
+  bool isExpiredTickets;
+
+  @override
+  void initState() {
+    super.initState();
+    isExpiredTickets = widget.isExpiredTicket;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,60 +148,77 @@ class TicketViewer extends StatelessWidget {
   final List<Ticket> tickets;
 
   TicketViewer(this.tickets);
+
   @override
   Widget build(BuildContext context) {
     var sortedTickets = tickets;
     sortedTickets
         .sort((ticket1, ticket2) => ticket1.time.compareTo(ticket2.time));
+
     return ListView.builder(
-      itemCount: sortedTickets.length,
-      itemBuilder: (_, index) => Container(
-        margin: EdgeInsets.only(top: index == 0 ? 123 : 20),
-        child: Row(
-          children: <Widget>[
-            Container(
-                width: 70,
-                height: 90,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    image: DecorationImage(
-                        image: NetworkImage(imageBaseURL +
-                            "w500" +
-                            sortedTickets[index].movieDetail.posterPath),
-                        fit: BoxFit.cover))),
-            SizedBox(width: 16),
-            SizedBox(
-              width: MediaQuery.of(context).size.width -
-                  2 * defaultMargin -
-                  70 -
-                  16,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    sortedTickets[index].movieDetail.title,
-                    style: blackTextFont.copyWith(fontSize: 18),
-                    maxLines: 2,
-                    overflow: TextOverflow.clip,
-                  ),
-                  SizedBox(
-                    height: 6,
-                  ),
-                  Text(sortedTickets[index].movieDetail.genresAndLanguage,
-                      style: greyTextFont.copyWith(
-                          fontSize: 12, fontWeight: FontWeight.w400)),
-                  SizedBox(
-                    height: 6,
-                  ),
-                  Text(sortedTickets[index].theater.name,
-                      style: greyTextFont.copyWith(
-                          fontSize: 12, fontWeight: FontWeight.w400)),
-                ],
+        itemCount: sortedTickets.length,
+        itemBuilder: (_, index) => GestureDetector(
+              onTap: () {
+                context
+                    .bloc<PageBloc>()
+                    .add(GoToTicketDetailPage(sortedTickets[index]));
+                print(sortedTickets[index].bookingCode);
+              },
+              child: Container(
+                margin: EdgeInsets.only(top: index == 0 ? 133 : 20),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: 70,
+                      height: 90,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                              image: NetworkImage(imageBaseURL +
+                                  'w500' +
+                                  sortedTickets[index].movieDetail.posterPath),
+                              fit: BoxFit.cover)),
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width -
+                            2 * defaultMargin -
+                            70 -
+                            16,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              sortedTickets[index].movieDetail.title,
+                              style: blackTextFont.copyWith(fontSize: 18),
+                              maxLines: 2,
+                              overflow: TextOverflow.clip,
+                            ),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              sortedTickets[index]
+                                  .movieDetail
+                                  .genresAndLanguage,
+                              style: greyTextFont.copyWith(
+                                  fontSize: 12, fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              sortedTickets[index].theater.name,
+                              style: greyTextFont.copyWith(
+                                  fontSize: 12, fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        ))
+                  ],
+                ),
               ),
-            )
-          ],
-        ),
-      ),
-    );
+            ));
   }
 }

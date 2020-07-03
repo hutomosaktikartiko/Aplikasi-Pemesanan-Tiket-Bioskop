@@ -21,7 +21,7 @@ class AuthServices {
     }
   }
 
-  static Future<SignInSignUpResult> signIn(  
+  static Future<SignInSignUpResult> signIn(
       String email, String password) async {
     try {
       AuthResult result = await _auth.signInWithEmailAndPassword(
@@ -34,7 +34,7 @@ class AuthServices {
     }
   }
 
-  static Future<void> singOut() async {
+  static Future<void> signOut() async {
     await _auth.signOut();
   }
 

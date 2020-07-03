@@ -26,32 +26,37 @@ class MoviePage extends StatelessWidget {
                 }
                 return Row(
                   children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border:
-                              Border.all(color: Color(0xFF5F558B), width: 1)),
-                      child: Stack(
-                        children: <Widget>[
-                          SpinKitFadingCircle(
-                            color: accentColor2,
-                            size: 50,
-                          ),
-                          Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: (userState.user.profilePicture == ""
-                                      ? AssetImage("assets/user_pic.png")
-                                      : NetworkImage(
-                                          userState.user.profilePicture)),
-                                  fit: BoxFit.cover),
+                    GestureDetector(
+                      onTap: () {
+                        context.bloc<PageBloc>().add(GoToProfilePage());
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border:
+                                Border.all(color: Color(0xFF5F558B), width: 1)),
+                        child: Stack(
+                          children: <Widget>[
+                            SpinKitFadingCircle(
+                              color: accentColor2,
+                              size: 50,
                             ),
-                          )
-                        ],
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: (userState.user.profilePicture == ""
+                                        ? AssetImage("assets/user_pic.png")
+                                        : NetworkImage(
+                                            userState.user.profilePicture)),
+                                    fit: BoxFit.cover),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
