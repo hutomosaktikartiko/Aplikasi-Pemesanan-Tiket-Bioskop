@@ -62,6 +62,11 @@ class Wrapper extends StatelessWidget {
                                                                     pageState
                                                                         .isExpired,
                                                               )
-                                                            : MainPage());
+                                                            : (pageState
+                                                                    is OnTopUpPage)
+                                                                ? TopUpPage(
+                                                                    pageState
+                                                                        .pageEvent)
+                                                                : MainPage());
   }
 }
