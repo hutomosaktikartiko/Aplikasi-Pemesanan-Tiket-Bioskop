@@ -4,6 +4,7 @@ class TicketPage extends StatefulWidget {
   final bool isExpiredTicket;
 
   TicketPage({this.isExpiredTicket = false});
+
   @override
   _TicketPageState createState() => _TicketPageState();
 }
@@ -14,6 +15,7 @@ class _TicketPageState extends State<TicketPage> {
   @override
   void initState() {
     super.initState();
+
     isExpiredTickets = widget.isExpiredTicket;
   }
 
@@ -22,20 +24,21 @@ class _TicketPageState extends State<TicketPage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          // Content
+          // note: CONTENT
           BlocBuilder<TicketBloc, TicketState>(
               builder: (_, ticketState) => Container(
-                  margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-                  child: TicketViewer(isExpiredTickets
-                      ? ticketState.tickets
-                          .where(
-                              (ticket) => ticket.time.isBefore(DateTime.now()))
-                          .toList()
-                      : ticketState.tickets
-                          .where(
-                              (ticket) => !ticket.time.isBefore(DateTime.now()))
-                          .toList()))),
-          // Header
+                    margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+                    child: TicketViewer(isExpiredTickets
+                        ? ticketState.tickets
+                            .where((ticket) =>
+                                ticket.time.isBefore(DateTime.now()))
+                            .toList()
+                        : ticketState.tickets
+                            .where((ticket) =>
+                                !ticket.time.isBefore(DateTime.now()))
+                            .toList()),
+                  )),
+          // note: HEADER
           Container(
             height: 113,
             color: accentColor1,
@@ -44,78 +47,83 @@ class _TicketPageState extends State<TicketPage> {
               child: ClipPath(
             clipper: HeaderClipper(),
             child: Container(
-                height: 113,
-                color: accentColor1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Container(
-                        margin: EdgeInsets.only(left: 24, bottom: 32),
-                        child: Text(
-                          "My Tickets",
-                          style: whiteTextFont.copyWith(
-                            fontSize: 20,
+              height: 113,
+              color: accentColor1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                      margin: EdgeInsets.only(left: 24, bottom: 32),
+                      child: Text(
+                        "My Tickets",
+                        style: whiteTextFont.copyWith(fontSize: 20),
+                      )),
+                  Row(
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isExpiredTickets = !isExpiredTickets;
+                              });
+                            },
+                            child: Text(
+                              "Newest",
+                              style: whiteTextFont.copyWith(
+                                  fontSize: 16,
+                                  color: !isExpiredTickets
+                                      ? Colors.white
+                                      : Color(0xFF6F678E)),
+                            ),
                           ),
-                        )),
-                    Row(
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isExpiredTickets = !isExpiredTickets;
-                                });
-                              },
-                              child: Text("Newest",
-                                  style: whiteTextFont.copyWith(
-                                      fontSize: 16,
-                                      color: !isExpiredTickets
-                                          ? Colors.white
-                                          : Color(0xFF6F678E))),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            height: 4,
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            color: !isExpiredTickets
+                                ? accentColor2
+                                : Colors.transparent,
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isExpiredTickets = !isExpiredTickets;
+                              });
+                            },
+                            child: Text(
+                              "Oldest",
+                              style: whiteTextFont.copyWith(
+                                  fontSize: 16,
+                                  color: isExpiredTickets
+                                      ? Colors.white
+                                      : Color(0xFF6F678E)),
                             ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Container(
-                                height: 4,
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                color: !isExpiredTickets
-                                    ? accentColor2
-                                    : Colors.transparent)
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isExpiredTickets = !isExpiredTickets;
-                                });
-                              },
-                              child: Text("Oldest",
-                                  style: whiteTextFont.copyWith(
-                                      fontSize: 16,
-                                      color: isExpiredTickets
-                                          ? Colors.white
-                                          : Color(0xFF6F678E))),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Container(
-                                height: 4,
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                color: isExpiredTickets
-                                    ? accentColor2
-                                    : Colors.transparent)
-                          ],
-                        ),
-                      ],
-                    )
-                  ],
-                )),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            height: 4,
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            color: isExpiredTickets
+                                ? accentColor2
+                                : Colors.transparent,
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
           ))
         ],
       ),
@@ -162,7 +170,6 @@ class TicketViewer extends StatelessWidget {
                 context
                     .bloc<PageBloc>()
                     .add(GoToTicketDetailPage(sortedTickets[index]));
-                print(sortedTickets[index].bookingCode);
               },
               child: Container(
                 margin: EdgeInsets.only(top: index == 0 ? 133 : 20),

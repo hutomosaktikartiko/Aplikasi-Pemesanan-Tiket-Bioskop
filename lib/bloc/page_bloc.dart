@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:bwa_flutix/bloc/blocs.dart';
 import 'package:bwa_flutix/models/models.dart';
 import 'package:equatable/equatable.dart';
 
@@ -48,6 +47,8 @@ class PageBloc extends Bloc<PageEvent, PageState> {
       yield OnTopUpPage(event.pageEvent);
     } else if (event is GoToWalletPage) {
       yield OnWalletPage(event.pageEvent);
+    } else if (event is GoToEditProfilePage) {
+      yield OnEditProfilePage(event.user);
     }
   }
 }

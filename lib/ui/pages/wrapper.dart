@@ -3,7 +3,6 @@ part of 'pages.dart';
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //mendapatkan status user, jika terdapat perubahan status maka method build akan dipanggil kembali
     FirebaseUser firebaseUser = Provider.of<FirebaseUser>(context);
 
     if (firebaseUser == null) {
@@ -13,7 +12,6 @@ class Wrapper extends StatelessWidget {
       }
     } else {
       if (!(prevPageEvent is GoToMainPage)) {
-        //sebelum ke main page, kita perintahkan untuk meload user
         context.bloc<UserBloc>().add(LoadUser(firebaseUser.uid));
         context.bloc<TicketBloc>().add(GetTickets(firebaseUser.uid));
 
@@ -53,25 +51,28 @@ class Wrapper extends StatelessWidget {
                                                             is OnProfilePage)
                                                         ? ProfilePage()
                                                         : (pageState
-                                                                is OnMainPage)
-                                                            ? MainPage(
-                                                                bottomNavBarIndex:
-                                                                    pageState
-                                                                        .bottomNavBarIndex,
-                                                                isExpired:
-                                                                    pageState
-                                                                        .isExpired,
-                                                              )
+                                                                is OnTopUpPage)
+                                                            ? TopUpPage(
+                                                                pageState
+                                                                    .pageEvent)
                                                             : (pageState
-                                                                    is OnTopUpPage)
-                                                                ? TopUpPage(
+                                                                    is OnWalletPage)
+                                                                ? WalletPage(
                                                                     pageState
                                                                         .pageEvent)
                                                                 : (pageState
-                                                                        is OnWalletPage)
-                                                                    ? WalletPage(
+                                                                        is OnEditProfilePage)
+                                                                    ? EditProfilePage(
                                                                         pageState
-                                                                            .pageEvent)
-                                                                    : MainPage());
+                                                                            .user)
+                                                                    : (pageState
+                                                                            is OnMainPage)
+                                                                        ? MainPage(
+                                                                            bottomNavBarIndex:
+                                                                                pageState.bottomNavBarIndex,
+                                                                            isExpired:
+                                                                                pageState.isExpired,
+                                                                          )
+                                                                        : Container());
   }
 }

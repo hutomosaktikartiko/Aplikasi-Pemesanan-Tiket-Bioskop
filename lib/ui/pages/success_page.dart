@@ -5,6 +5,7 @@ class SuccessPage extends StatelessWidget {
   final FlutixTransaction transaction;
 
   SuccessPage(this.ticket, this.transaction);
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -12,12 +13,12 @@ class SuccessPage extends StatelessWidget {
           return;
         },
         child: Scaffold(
-            body: FutureBuilder(
-          future: ticket != null
-              ? processingTicketOrder(context)
-              : processingTopUp(context),
-          builder: (_, snapshot) =>
-              (snapshot.connectionState == ConnectionState.done)
+          body: FutureBuilder(
+              future: ticket != null
+                  ? processingTicketOrder(context)
+                  : processingTopUp(context),
+              builder: (_, snapshot) => (snapshot.connectionState ==
+                      ConnectionState.done)
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -32,10 +33,12 @@ class SuccessPage extends StatelessWidget {
                                       : "assets/ticket_done.png"))),
                         ),
                         Text(
-                          (ticket == null) ? "Emmy Yummy!" : "Happy Watching!",
+                          (ticket == null) ? "Emmm Yummy!" : "Happy Watching!",
                           style: blackTextFont.copyWith(fontSize: 20),
                         ),
-                        SizedBox(height: 16),
+                        SizedBox(
+                          height: 16,
+                        ),
                         Text(
                           (ticket == null)
                               ? "You have successfully\ntop up the wallet"
@@ -55,10 +58,7 @@ class SuccessPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(8)),
                               child: Text(
                                 (ticket == null) ? "My Wallet" : "My Tickets",
-                                textAlign: TextAlign.center,
-                                style: whiteTextFont.copyWith(
-                                  fontSize: 16,
-                                ),
+                                style: whiteTextFont.copyWith(fontSize: 16),
                               ),
                               onPressed: () {
                                 if (ticket == null) {
@@ -66,7 +66,9 @@ class SuccessPage extends StatelessWidget {
                                       .bloc<PageBloc>()
                                       .add(GoToWalletPage(GoToMainPage()));
                                 } else {
-                                  // Go To Ticket Page
+                                  context
+                                      .bloc<PageBloc>()
+                                      .add(GoToMainPage(bottomNavBarIndex: 1));
                                 }
                               }),
                         ),
@@ -83,24 +85,26 @@ class SuccessPage extends StatelessWidget {
                                 context.bloc<PageBloc>().add(GoToMainPage());
                               },
                               child: Text(
-                                "Back to home",
-                                style: purpleTextFont.copyWith(
-                                    fontWeight: FontWeight.w400),
+                                "Back to Home",
+                                style: purpleTextFont,
                               ),
-                            ),
+                            )
                           ],
                         )
                       ],
                     )
                   : Center(
-                      child: SpinKitFadingCircle(size: 50, color: mainColor),
-                    ),
-        )));
+                      child: SpinKitFadingCircle(
+                        color: mainColor,
+                        size: 50,
+                      ),
+                    )),
+        ));
   }
 
   Future<void> processingTicketOrder(BuildContext context) async {
     context.bloc<UserBloc>().add(Purchase(ticket.totalPrice));
-    context.bloc<TicketBloc>().add(BuyTickets(ticket, transaction.userID));
+    context.bloc<TicketBloc>().add(BuyTicket(ticket, transaction.userID));
 
     await FlutixTransactionServices.saveTransaction(transaction);
   }

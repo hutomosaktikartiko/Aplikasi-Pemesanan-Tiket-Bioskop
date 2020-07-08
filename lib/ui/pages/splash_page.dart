@@ -4,8 +4,8 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
+        backgroundColor: Colors.white,
+        body: Container(
           padding: EdgeInsets.symmetric(horizontal: defaultMargin),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -19,8 +19,10 @@ class SplashPage extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(top: 70, bottom: 16),
-                child: Text("New Experience",
-                    style: blackTextFont.copyWith(fontSize: 20)),
+                child: Text(
+                  "New Experience",
+                  style: blackTextFont.copyWith(fontSize: 20),
+                ),
               ),
               Text(
                 "Watch a new movie much\neasier than any before",
@@ -63,7 +65,7 @@ class SplashPage extends StatelessWidget {
                 ],
               )
             ],
-          )),
-    );
+          ),
+        ));
   }
 }

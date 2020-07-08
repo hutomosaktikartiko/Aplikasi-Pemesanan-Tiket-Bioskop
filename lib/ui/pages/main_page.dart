@@ -1,7 +1,9 @@
 part of 'pages.dart';
 
 class MainPage extends StatefulWidget {
+  //tombol back untuk ke tab movies atau ticket
   final int bottomNavBarIndex;
+  // ketika pindah ke ticket page, akan menampilkan ticket yg sudah expired atau bukan
   final bool isExpired;
 
   MainPage({this.bottomNavBarIndex = 0, this.isExpired = false});

@@ -4,6 +4,7 @@ class WalletPage extends StatelessWidget {
   final PageEvent pageEvent;
 
   WalletPage(this.pageEvent);
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -15,8 +16,14 @@ class WalletPage extends StatelessWidget {
       child: Scaffold(
         body: Stack(
           children: <Widget>[
-            Container(color: accentColor1),
-            SafeArea(child: Container(color: Colors.white)),
+            Container(
+              color: accentColor1,
+            ),
+            SafeArea(
+                child: Container(
+              color: Colors.white,
+            )),
+            // note: CONTENT
             SafeArea(
               child: Container(
                 margin: EdgeInsets.fromLTRB(defaultMargin, 0, defaultMargin, 0),
@@ -25,7 +32,7 @@ class WalletPage extends StatelessWidget {
                     Stack(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(top: 20.0),
+                          padding: EdgeInsets.only(top: 20),
                           child: GestureDetector(
                             onTap: () {
                               context.bloc<PageBloc>().add(pageEvent);
@@ -36,10 +43,14 @@ class WalletPage extends StatelessWidget {
                         BlocBuilder<UserBloc, UserState>(
                           builder: (_, userState) => Column(
                             children: <Widget>[
-                              SizedBox(height: 20),
-                              Text("My Wallet",
-                                  style: blackTextFont.copyWith(fontSize: 20)),
-                              // ID CARD
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                "My Wallet",
+                                style: blackTextFont.copyWith(fontSize: 20),
+                              ),
+                              // note: ID CARD
                               Container(
                                 height: 185,
                                 width: double.infinity,
@@ -69,7 +80,7 @@ class WalletPage extends StatelessWidget {
                                                 end: Alignment.topLeft,
                                                 colors: [
                                                   Colors.white.withOpacity(0.1),
-                                                  Colors.white.withOpacity(0),
+                                                  Colors.white.withOpacity(0)
                                                 ])),
                                       ),
                                     ),
@@ -90,7 +101,7 @@ class WalletPage extends StatelessWidget {
                                                     EdgeInsets.only(right: 4),
                                                 decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
-                                                    color: Color(0xFFFFF3CB)),
+                                                    color: Color(0xFFFFF2CB)),
                                               ),
                                               Container(
                                                 width: 30,
@@ -102,17 +113,18 @@ class WalletPage extends StatelessWidget {
                                             ],
                                           ),
                                           Text(
-                                              NumberFormat.currency(
-                                                      locale: 'id_ID',
-                                                      symbol: 'IDR ',
-                                                      decimalDigits: 0)
-                                                  .format(
-                                                      (userState as UserLoaded)
-                                                          .user
-                                                          .balance),
-                                              style: whiteNumberFont.copyWith(
-                                                  fontSize: 28,
-                                                  fontWeight: FontWeight.w600)),
+                                            NumberFormat.currency(
+                                                    locale: 'id_ID',
+                                                    symbol: 'IDR ',
+                                                    decimalDigits: 0)
+                                                .format(
+                                                    (userState as UserLoaded)
+                                                        .user
+                                                        .balance),
+                                            style: whiteNumberFont.copyWith(
+                                                fontSize: 28,
+                                                fontWeight: FontWeight.w600),
+                                          ),
                                           Row(
                                             children: <Widget>[
                                               Column(
@@ -131,15 +143,17 @@ class WalletPage extends StatelessWidget {
                                                   Row(
                                                     children: <Widget>[
                                                       Text(
-                                                          (userState
-                                                                  as UserLoaded)
-                                                              .user
-                                                              .name,
-                                                          style: whiteTextFont
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      12)),
-                                                      SizedBox(width: 4),
+                                                        (userState
+                                                                as UserLoaded)
+                                                            .user
+                                                            .name,
+                                                        style: whiteTextFont
+                                                            .copyWith(
+                                                                fontSize: 12),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 4,
+                                                      ),
                                                       SizedBox(
                                                         height: 14,
                                                         width: 14,
@@ -169,17 +183,19 @@ class WalletPage extends StatelessWidget {
                                                   Row(
                                                     children: <Widget>[
                                                       Text(
-                                                          (userState
-                                                                  as UserLoaded)
-                                                              .user
-                                                              .id
-                                                              .substring(0, 10)
-                                                              .toUpperCase(),
-                                                          style: whiteNumberFont
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      12)),
-                                                      SizedBox(width: 4),
+                                                        (userState
+                                                                as UserLoaded)
+                                                            .user
+                                                            .id
+                                                            .substring(0, 10)
+                                                            .toUpperCase(),
+                                                        style: whiteNumberFont
+                                                            .copyWith(
+                                                                fontSize: 12),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 4,
+                                                      ),
                                                       SizedBox(
                                                         height: 14,
                                                         width: 14,
@@ -200,28 +216,33 @@ class WalletPage extends StatelessWidget {
                               ),
                               Align(
                                   alignment: Alignment.topLeft,
-                                  child: Text("Recent Transaction",
-                                      style: blackTextFont)),
-                              SizedBox(height: 12),
-                              FutureBuilder(
-                                future:
-                                    FlutixTransactionServices.getTransaction(
-                                        (userState as UserLoaded).user.id),
-                                builder: (_, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return generateTransactionList(
-                                        snapshot.data,
-                                        MediaQuery.of(context).size.width -
-                                            2 * defaultMargin);
-                                  } else {
-                                    return SpinKitFadingCircle(
-                                      size: 50,
-                                      color: mainColor,
-                                    );
-                                  }
-                                },
+                                  child: Text(
+                                    "Recent Transaction",
+                                    style: blackTextFont,
+                                  )),
+                              SizedBox(
+                                height: 12,
                               ),
-                              SizedBox(height: 75)
+                              FutureBuilder(
+                                  future:
+                                      FlutixTransactionServices.getTransaction(
+                                          (userState as UserLoaded).user.id),
+                                  builder: (_, snapshot) {
+                                    if (snapshot.hasData) {
+                                      return generateTransactionList(
+                                          snapshot.data,
+                                          MediaQuery.of(context).size.width -
+                                              2 * defaultMargin);
+                                    } else {
+                                      return SpinKitFadingCircle(
+                                        size: 50,
+                                        color: mainColor,
+                                      );
+                                    }
+                                  }),
+                              SizedBox(
+                                height: 75,
+                              )
                             ],
                           ),
                         )
@@ -231,7 +252,7 @@ class WalletPage extends StatelessWidget {
                 ),
               ),
             ),
-            // BUTTON
+            // note: BUTTON
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -243,8 +264,10 @@ class WalletPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                     color: mainColor,
-                    child: Text("Top Up My Wallet",
-                        style: whiteTextFont.copyWith(fontSize: 16)),
+                    child: Text(
+                      "Top Up My Wallet",
+                      style: whiteTextFont.copyWith(fontSize: 16),
+                    ),
                     onPressed: () {
                       context
                           .bloc<PageBloc>()
@@ -262,13 +285,15 @@ class WalletPage extends StatelessWidget {
       List<FlutixTransaction> transactions, double width) {
     transactions.sort((transaction1, transaction2) =>
         transaction2.time.compareTo(transaction1.time));
+
     return Column(
-        children: transactions
-            .map((transaction) => Padding(
-                  padding: const EdgeInsets.only(bottom: 12.0),
-                  child: TransactionCard(transaction, width),
-                ))
-            .toList());
+      children: transactions
+          .map((transaction) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: TransactionCard(transaction, width),
+              ))
+          .toList(),
+    );
   }
 }
 
@@ -277,7 +302,6 @@ class CardReflectionClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path = Path();
 
-    // DIAGONAL
     path.lineTo(size.width, 0);
     path.lineTo(size.width, size.height - 15);
     path.close();

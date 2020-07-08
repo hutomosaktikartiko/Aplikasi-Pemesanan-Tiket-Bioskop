@@ -13,11 +13,11 @@ class GetTickets extends TicketEvent {
   List<Object> get props => [userID];
 }
 
-class BuyTickets extends TicketEvent {
+class BuyTicket extends TicketEvent {
   final Ticket ticket;
   final String userID;
 
-  BuyTickets(this.ticket, this.userID);
+  BuyTicket(this.ticket, this.userID);
 
   @override
   List<Object> get props => [ticket, userID];
