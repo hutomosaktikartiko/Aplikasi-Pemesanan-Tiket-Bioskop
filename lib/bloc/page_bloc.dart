@@ -46,6 +46,8 @@ class PageBloc extends Bloc<PageEvent, PageState> {
       yield OnProfilePage();
     } else if (event is GoToTopUpPage) {
       yield OnTopUpPage(event.pageEvent);
+    } else if (event is GoToWalletPage) {
+      yield OnWalletPage(event.pageEvent);
     }
   }
 }

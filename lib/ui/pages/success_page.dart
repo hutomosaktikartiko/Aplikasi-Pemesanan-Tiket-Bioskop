@@ -61,7 +61,13 @@ class SuccessPage extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                print(ticket.bookingCode);
+                                if (ticket == null) {
+                                  context
+                                      .bloc<PageBloc>()
+                                      .add(GoToWalletPage(GoToMainPage()));
+                                } else {
+                                  // Go To Ticket Page
+                                }
                               }),
                         ),
                         Row(
