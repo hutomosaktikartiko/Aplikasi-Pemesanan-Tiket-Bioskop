@@ -1,16 +1,4 @@
-# bwa_flutix
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Screenshot
+![Untitled-2](https://user-images.githubusercontent.com/51199036/108457530-67b4bb00-72a5-11eb-9fe2-b3021ec56eaf.png)
+![Untitled-3](https://user-images.githubusercontent.com/51199036/108457625-9337a580-72a5-11eb-8a27-b1eb0b681647.png)
+![Untitled-4](https://user-images.githubusercontent.com/51199036/108457677-a77ba280-72a5-11eb-8676-c52880c559a7.png)
